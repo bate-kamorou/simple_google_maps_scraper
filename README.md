@@ -30,8 +30,8 @@ pip install -r requirements.txt
 
 ## Parameters
 
-- `--query`: The search query for finding businesses (e.g., "solar installer Amsterdam").
-- `--output`: The name of the CSV file to save the extracted data (e.g., "businesses_leads.csv").
+- `query`: The search query for finding businesses (e.g., "solar installer Amsterdam").
+- `output`: The name of the CSV file to save the extracted data (e.g., "businesses_leads.csv").
 
 ## Output
 
