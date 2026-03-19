@@ -13,7 +13,7 @@ This is a simple Google Maps scraper that allows you to extract information abou
 
 ```bash
     git clone https://github.com/bate-kamorou/simple_google_maps_scraper.git
-    cd google_maps_scraper
+    cd simple_google_maps_scraper
 ```
 
 2. Install the required dependencies:
@@ -25,7 +25,7 @@ pip install -r requirements.txt
 3. Run the scraper:
 
 ```bash
-python scraper.py --query "solar installer Amsterdam" --output businesses_leads.csv
+    python scraper.py <query>  <output> 
 ```
 
 ## Parameters
