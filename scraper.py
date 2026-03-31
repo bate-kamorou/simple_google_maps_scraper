@@ -203,15 +203,18 @@ def Business_scraper(search_query:str, output_format:str="csv"):
 
         # retry missing 
         def retry_missing():
-            print("🔃🔃🔃 Retrying values with missing phones")
-            
-            missing_phones = save_missing_and_retry(filename)
+            try:
+                print("🔃🔃🔃 Retrying values with missing phones")
 
-            # get  missing phone values 
-            missing_phones_links = [link for link in links if link == missing_phones["link"]]
+                missing_phones = save_missing_and_retry(filename)
 
-            # retry links with missing phones values
-            data_extraction(missing_phones_links)
+                # get  missing phone values 
+                missing_phones_links = [link for link in links if link in missing_phones["google_maps_link"].values ]
+
+                # retry links with missing phones values
+                data_extraction(missing_phones_links)
+            except Exception as e:
+                print(f"💔💔💔 Retry Failed \nERROR DESCRIPTION: {e}")
 
         retry_missing()
 

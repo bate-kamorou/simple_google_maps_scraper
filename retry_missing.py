@@ -16,10 +16,11 @@ def save_missing_and_retry(filename:str) -> pd.DataFrame:
     print("🪧🪧🪧  Missing phones:", len(missing))
 
     # construct filename 
-    filname_const = f"missing_phone_{filename}.csv"
+    filname_const = f"missing_phone_{filename}"
 
     # save for reprocessing
     missing.to_csv(filname_const, index=False)
+    print(f"Data with missing phone saved to file {filname_const}")
 
     return missing
 
