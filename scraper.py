@@ -92,11 +92,11 @@ def Business_scraper(search_query:str, output_format:str="csv"):
 
         print(f"Found {len(links)} Total businesses links for {search_query}")
 
-        
+        # create an empty list to store the scraped data
+        data = []
 
         def data_extraction(links):
-            # create an empty list to store the scraped data
-            data = []
+            
             # loop through each business page  by their links
             for link in links:
                 # open the business listing card using their links

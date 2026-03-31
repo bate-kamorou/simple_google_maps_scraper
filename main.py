@@ -6,13 +6,13 @@ from tracker import load_progress
 # queries to use
 industries = [
     "solar installer",
-    # "roofing contractor",
+    "roofing contractor",
     # "construction company"
 ]
 
 cities = [
     # "Amsterdam",
-    # "Rotterdam",
+    "Rotterdam",
     # "Utrecht",
     "Antwerp",
     # "Ghent"
@@ -26,7 +26,7 @@ queries = [f"{industry} {city}" for industry in industries for city in cities]
 if __name__ == "__main__":
     
 
-    with Pool(1) as pool:
+    with Pool(2) as pool:
         pool.map(Business_scraper, queries)
 
         # load the completes queries
