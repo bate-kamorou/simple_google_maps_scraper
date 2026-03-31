@@ -11,6 +11,7 @@ This project automates the process of gathering business intelligence from Googl
 3. Extracting detailed business information from individual listings
 4. Storing data in multiple formats (CSV and JSON)
 5. Tracking progress to handle interrupted or failed scraping sessions
+6. Construct the final dataset by merging and cleaning individual query results, removing duplicates, and ensuring data quality
 
 ## 🎯 What It Does
 
@@ -31,6 +32,7 @@ The scraper performs the following workflow:
 6. **Data Storage**: Saves extracted data to CSV or JSON format
 7. **Progress Tracking**: Maintains a progress log to resume from interruptions
 8. **Duplicate Removal**: Automatically removes duplicate entries by company name
+9. **Merging Results**: Combines results from multiple queries into a final dataset
 
 ## 🔧 How It Works
 
@@ -55,6 +57,8 @@ Tracker (Progress Management)
     Saves completed queries to progress.json
     ↓
 Output Files (CSV or JSON)
+    ↓
+Merge and clean data, remove duplicates
 ```
 
 ### Key Components
@@ -99,6 +103,15 @@ Output Files (CSV or JSON)
   - Creates a `missing_phone.csv` file for re-scraping
   - Supports both CSV and JSON input files
 
+### `merge_and_clean.py`
+
+- **Purpose**: Merges individual query results and cleans the final dataset
+- **Functionality**:
+  - Reads all CSV or JSON files from the `output/` directory
+  - Combines them into a single DataFrame
+  - Removes duplicate entries based on company name
+  - Saves the final cleaned dataset as `final_output.csv` or`final_output.json`
+
 ## 📦 Features
 
 - ✅ **Multi-query Scraping**: Process multiple search terms and locations
@@ -111,6 +124,7 @@ Output Files (CSV or JSON)
 - ✅ **Error Logging**: Logs errors to `logs/errors.txt`
 - ✅ **Data Validation**: Cleans URLs and normalizes data
 - ✅ **Flexible Configuration**: Easy to modify search parameters
+- ✅ **Final Dataset Construction**: Merges and cleans results into a final dataset
 
 ## 🚀 Installation
 
@@ -129,7 +143,7 @@ git clone https://github.com/bate-kamorou/google_maps_scraper.git
 cd google_maps_scraper
 ```
 
-2. **Create a virtual environment** (optional but recommended):
+2.**Create a virtual environment** (optional but recommended):
 
 ```bash
 python -m venv .venv
@@ -139,7 +153,7 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
-3. **Install dependencies**:
+3.**Install dependencies**:
 
 ```bash
 pip install -r requirements.txt
@@ -152,6 +166,8 @@ pip install -r requirements.txt
 1. **Configure Search Parameters** in `main.py`:
 
 ```python
+EXAMPLE USAGE:
+
 industries = [
     "solar installer",
     "roofing contractor",
@@ -165,7 +181,7 @@ cities = [
 ]
 ```
 
-2. **Run the Scraper**:
+2.**Run the Scraper**:
 
 ```bash
 python main.py
@@ -174,7 +190,7 @@ python main.py
 ### Direct Scraper Usage
 
 ```bash
-python scraper.py "solar installer Amsterdam" csv
+python scraper.py "solar installer Amsterdam" "csv"
 ```
 
 ### Retry Missing Data
@@ -208,6 +224,19 @@ Same data structure as CSV, formatted as JSON array of objects.
 ``` code
 company_name,phone,address,rating,review,website,google_maps_link
 Solar Plus Amsterdam,+31 20 123 4567,123 Main St Amsterdam,4.8,156,https://solarplus.nl,https://www.google.com/maps/place/Solar+Plus...
+```
+
+## Final Dataset Construction
+
+After running multiple queries, you can use the `merge_and_clean.py` script to combine all individual CSV or JSON files into a single cleaned dataset. This script will:
+
+- Read all files from the `output/` directory
+- Merge them into a single DataFrame
+- Remove duplicate entries based on company name
+- Save the final cleaned dataset as `final_output.csv` or `final_output.json`
+
+```bash
+python merge_and_clean.py
 ```
 
 ## 📁 Project Structure
@@ -305,7 +334,3 @@ pip install --upgrade selenium
 
 - Increase random delay values
 - Add longer sleep times between requests
-
-## 📝 License
-
-This project is open source and available under the MIT License.
